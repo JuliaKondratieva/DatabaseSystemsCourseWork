@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Bookcrossing Web Page</title>
+</head>
+<body>
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<p><a th:href="@{/books}"> catalogue </a> <a th:href="@{/ordersubmit}">             order your book</a><a th:href="@{/orders}">             my orders</a></p>
+</body>
+</html>

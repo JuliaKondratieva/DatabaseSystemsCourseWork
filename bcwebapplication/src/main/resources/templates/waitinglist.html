@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Waiting list</title>
+</head>
+<body>
+<h1>Your order is submitted, but your book is unavailable at the moment</h1>
+<h1 th:inline="text">Please be patient, you will receive your book ASAP!</h1>
+<p><a th:href="@{/ordersubmit}">CREATE NEW ORDER</a> <a th:href="@{/mainuserpage}">HOMEPAGE</a> </p>
+</form>
+</body>
+</html>
