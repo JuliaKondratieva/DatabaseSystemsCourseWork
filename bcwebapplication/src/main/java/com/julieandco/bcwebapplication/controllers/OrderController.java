@@ -23,10 +23,6 @@ import java.util.Optional;
 public class OrderController {
     private static final String D_PAGE ="mainuserpage";
     private static final String WAITING_LIST_PAGE ="waitinglist";
-    private static final String URL = "http://localhost:8081";
-    private static final RestTemplate restTemplate = new RestTemplate();
-    private static final HttpHeaders headers = new HttpHeaders();
-    private static final HttpEntity<Object> headersEntity = new HttpEntity<>(headers);
 
 
     @Autowired
@@ -37,6 +33,7 @@ public class OrderController {
     private CustomerService customerService;
     @Autowired
     private HttpServletRequest httpServletRequest;
+
 
     @GetMapping("/ordersubmit")
     public String getRegistrationView(){
@@ -60,13 +57,13 @@ public class OrderController {
         }
         if(bybook.size()>0) {
             System.out.println("BYBOOK ISNT NULL");
-            BookorderDTO bookorderDTO=new BookorderDTO(ordered,customerService.findByEmail(email));
+            BookorderDTO bookorderDTO=new BookorderDTO(ordered,customerService.findByUsername(email));
             orderService.addOrder(bookorderDTO);
             return WAITING_LIST_PAGE;
         }
         else {
             System.out.println("BYBOOK IS NULL");
-            BookorderDTO bookorderDTO=new BookorderDTO(ordered,customerService.findByEmail(email));
+            BookorderDTO bookorderDTO=new BookorderDTO(ordered,customerService.findByUsername(email));
             orderService.addOrder(bookorderDTO);
             return D_PAGE;
         }

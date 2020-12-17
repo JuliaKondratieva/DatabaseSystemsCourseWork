@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class OrderService {
     private final BookRepository bookRepository;
@@ -31,10 +34,15 @@ public class OrderService {
         return orderRepository.findByCustomer(customerEntity);
     }
 
-    public Bookorder saveOrder(final BookorderDTO orderData) {
+    /*public Bookorder saveOrder(final BookorderDTO orderData) {
         Bookorder order = populateOrderData(orderData);
         return orderRepository.save(order);
+    }*/
+    @Transactional
+    public void saveOrder(Bookorder order) {
+         orderRepository.save(order);
     }
+
     private Bookorder populateOrderData(final BookorderDTO orderData) {
         Bookorder order = new Bookorder();
         order.setBook(orderData.getBook());
@@ -68,5 +76,11 @@ public class OrderService {
             newOrder.setSubmitted(false);
             orderRepository.save(newOrder);
         }
+
     }
+    @Transactional
+    public Optional<Bookorder> findById(Long id){
+        return orderRepository.findById(id);
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.julieandco.bcwebapplication;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -27,7 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/**").permitAll()
-                .antMatchers("adminpage").hasRole("ADMIN")
                 .and().formLogin().defaultSuccessUrl("/homepage",true);
     }
 
@@ -49,5 +49,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authProvider());
     }
+
+    /*@Autowired
+    public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
+        authenticationMgr.inMemoryAuthentication()
+                .withUser("your_admin").password("bestbookadmin").authorities("ADMIN");
+    }*/
 }
 

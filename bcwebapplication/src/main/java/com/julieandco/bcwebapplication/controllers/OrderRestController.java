@@ -34,13 +34,37 @@ public class OrderRestController {
         List<Bookorder> bookorders;
         String jsonstring="";
         String email=httpServletRequest.getRemoteUser();
-        bookorders=orderService.findByCustomerEntity(customerService.findByEmail(email));
+        bookorders=orderService.findByCustomerEntity(customerService.findByUsername(email));
         for (Bookorder orders:bookorders) {
             Bookorder orderObj = orders;
+            String orderstr="ORDER N0: "+orders.getId().toString()
+                    + "    BOOK:  "+orders.getBook().getTitle()
+                    + "    "+ orders.statusString();
             Gson gson = new GsonBuilder()
                     .setPrettyPrinting()
                     .create();
-            jsonstring=jsonstring+gson.toJson(orderObj);
+            jsonstring=jsonstring+gson.toJson(orderstr);
+        }
+
+        return jsonstring;
+    }
+
+    @RequestMapping(value = "/allorders")
+    public String getAllOrders()
+    {
+        List<Bookorder> bookorders;
+        String jsonstring="";
+        bookorders=orderService.getAllOrders();
+        for (Bookorder orders:bookorders) {
+            Bookorder orderObj = orders;
+            String orderstr="ORDER N0: "+orders.getId().toString()
+                    + "    BOOK:  "+orders.getBook().getTitle()
+                    + "    USER:  "+orders.getUser().getEmail()
+                    + "    "+ orders.statusString();
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .create();
+            jsonstring=jsonstring+gson.toJson(orderstr);
         }
 
         return jsonstring;

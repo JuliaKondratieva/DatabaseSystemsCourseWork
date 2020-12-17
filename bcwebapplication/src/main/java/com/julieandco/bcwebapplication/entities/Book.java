@@ -1,9 +1,6 @@
 package com.julieandco.bcwebapplication.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Book {
@@ -14,6 +11,10 @@ public class Book {
     private String author;
     private int year;
     private String genre;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private Box boxId;
 
     public Book(){}
 

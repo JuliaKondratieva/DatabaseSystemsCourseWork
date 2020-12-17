@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Configuration
 @RestController
 public class MvcConfig {
@@ -34,13 +36,22 @@ public class MvcConfig {
         return new ModelAndView("login");
     }
 
-    @RequestMapping(value="/homepage")
-    public ModelAndView homepage() {
+    @RequestMapping("/homepage")
+    public ModelAndView defaultAfterLogin(HttpServletRequest request) {
+        if (request.getRemoteUser().equals("your_admin")){
+            System.out.println("REMOTEUSERADMIN");
+            return new ModelAndView("adminpage");
+        }
         return new ModelAndView("mainuserpage");
     }
 
     @RequestMapping(value="/ordersubmit")
     public ModelAndView submitorder() {
         return new ModelAndView("ordersubmit");
+    }
+
+    @RequestMapping(value="/adminpage")
+    public ModelAndView admin() {
+        return new ModelAndView("adminpage");
     }
 }

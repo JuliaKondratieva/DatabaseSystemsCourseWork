@@ -43,8 +43,19 @@ public class Bookorder {
         return book;
     }
 
+    public String statusString(){
+        if(submitted)
+            return "STATUS: SUBMITTED. DUE DATE: "+dueDate.toString();
+        else
+            return "STATUS: IN WAITING LIST";
+    }
+
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public LocalDateTime getFromDate() {

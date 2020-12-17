@@ -1,14 +1,15 @@
 package com.julieandco.bcwebapplication.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class BookorderDTO {
     private Long id;
     private Book book;
     private CustomerEntity customer;
-    private LocalDate fromDate;
-    private LocalDate dueDate;
+    private LocalDateTime fromDate;
+    private LocalDateTime dueDate;
     private boolean deliveryState;
     private boolean submitted;
 
@@ -23,7 +24,7 @@ public class BookorderDTO {
     public BookorderDTO(Book book, CustomerEntity user){
         this.book=book;
         this.customer=user;
-        this.fromDate=LocalDate.now();
+        this.fromDate=LocalDateTime.now();
         this.dueDate=fromDate.plusWeeks(3);
         this.deliveryState=false;
         this.submitted=true;
@@ -37,16 +38,20 @@ public class BookorderDTO {
         this.book = book;
     }
 
-    public LocalDate getFromDate() {
+    public LocalDateTime getFromDate() {
         return fromDate;
     }
 
-    public void setDueDate(LocalDate dueDate) {
+    public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public boolean getSubmitted() {
@@ -61,7 +66,7 @@ public class BookorderDTO {
         this.submitted = submitted;
     }
 
-    public void setFromDate(LocalDate fromDate) {
+    public void setFromDate(LocalDateTime fromDate) {
         this.fromDate = fromDate;
     }
 
@@ -81,7 +86,7 @@ public class BookorderDTO {
         return deliveryState;
     }
 
-    public LocalDate getDueDate(){
+    public LocalDateTime getDueDate(){
         return dueDate;
     }
 }

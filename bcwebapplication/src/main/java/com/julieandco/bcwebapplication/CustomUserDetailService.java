@@ -19,9 +19,17 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final CustomerEntity customer = customerRepository.findByEmail(username);
         if(customer ==null){
+            System.out.println("NULL");
             throw new UsernameNotFoundException(username);
         }
-        UserDetails user = User.withUsername(customer.getEmail()).password(customer.getPassword()).authorities("USER").build();
+        UserDetails user;
+        if(username.equals("bookcrossing_iseasy@gmail.com"))
+        {
+            System.out.println("ADMIN USER");
+            user = User.withUsername(customer.getUsername()).password(customer.getPassword()).authorities("ADMIN").build();
+        }
+        else
+             user = User.withUsername(customer.getUsername()).password(customer.getPassword()).authorities("USER").build();
         return user;
     }
 }

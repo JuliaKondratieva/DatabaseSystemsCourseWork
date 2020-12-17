@@ -1,5 +1,6 @@
 package com.julieandco.bcwebapplication.service;
 
+import com.julieandco.bcwebapplication.entities.Book;
 import com.julieandco.bcwebapplication.entities.CustomerDTO;
 import com.julieandco.bcwebapplication.entities.CustomerEntity;
 import com.julieandco.bcwebapplication.repo.CustomerRepository;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class CustomerService {
@@ -27,6 +30,10 @@ public class CustomerService {
         customer.setEmail(customerData.getEmail());
         customer.setPassword(passwordEncoder.encode(customerData.getPassword()));
         return customer;
+    }
+    @Transactional
+    public List<CustomerEntity> getAllUsers() {
+        return customerRepository.findAll();
     }
 
     @Transactional
