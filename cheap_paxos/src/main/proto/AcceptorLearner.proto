@@ -1,0 +1,14 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.julieandco.grpc;
+
+message AcceptorAcceptNotif {
+  int32 value=2;
+}
+
+message LearnerResponse {
+}
+
+service AcceptorLearnService {
+  rpc acceptnsend(AcceptorAcceptNotif) returns (LearnerResponse);
+}

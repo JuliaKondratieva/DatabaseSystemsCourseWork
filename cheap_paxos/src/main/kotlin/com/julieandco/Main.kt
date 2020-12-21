@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
 
+
 fun main() = runBlocking {
     val proposers = (0 until 5).map { ProposerImpl(it) }.toList()
     val acceptors = (0 until 3).map { AcceptorImpl() }.toList()

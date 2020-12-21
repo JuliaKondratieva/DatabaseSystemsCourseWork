@@ -1,0 +1,28 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.julieandco.grpc;
+
+message ProposersPrepareRequest {
+  int32 number = 1;
+  int32 value=2;
+}
+message AcceptorsResponce {
+  string prepareResponse = 1;
+  string ignored=2;
+  int32 highestproposal=3;
+  int32 valueofhighestprop=4;
+}
+
+message ProposersAcceptRequest {
+  int32 number = 1;
+  int32 value=2;
+}
+
+
+message ProposersAcceptResponse {
+}
+
+service ProposerAcceptorService {
+  rpc prepare(ProposersPrepareRequest) returns (AcceptorsResponce);
+  rpc accept(ProposersAcceptRequest) returns (ProposersAcceptResponse);
+}
