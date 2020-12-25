@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 public class BookController {
     private final BookService bookService;
-    private static final String ADDPAGE ="welcome";
+    private static final String ADDPAGE ="adminpage";
 
     @Autowired
     public BookController(BookService bookService) {

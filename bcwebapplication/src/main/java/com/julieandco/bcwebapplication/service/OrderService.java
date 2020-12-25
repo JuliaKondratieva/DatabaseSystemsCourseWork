@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -48,6 +49,16 @@ public class OrderService {
         order.setBook(orderData.getBook());
         order.setUser(orderData.getUser());
         return order;
+    }
+
+    public Bookorder findCurrentByBook(Book book){
+        Bookorder bookorder=new Bookorder();
+        List<Bookorder> list = orderRepository.findByBook(book);
+        for(Bookorder order:list){
+            if(order.getSubmitted())
+                bookorder=order;
+        }
+        return bookorder;
     }
 
     @Transactional

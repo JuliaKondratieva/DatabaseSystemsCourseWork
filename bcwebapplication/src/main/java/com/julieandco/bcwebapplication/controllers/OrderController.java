@@ -46,8 +46,8 @@ public class OrderController {
         System.out.println("TITLE: "+book.getTitle());
         Book ordered = bookService.findByTitle(book.getTitle());
         System.out.println("CHECK CONTROLLER BOOK= "+ordered.getTitle());
-        String email = httpServletRequest.getRemoteUser();
-        System.out.println("CONTROLLER. USER: "+email);
+        String username = httpServletRequest.getRemoteUser();
+        System.out.println("CONTROLLER. USER: "+username);
 
         List<Bookorder> bybook;
         bybook=orderService.findByBook(ordered);
@@ -57,13 +57,13 @@ public class OrderController {
         }
         if(bybook.size()>0) {
             System.out.println("BYBOOK ISNT NULL");
-            BookorderDTO bookorderDTO=new BookorderDTO(ordered,customerService.findByUsername(email));
+            BookorderDTO bookorderDTO=new BookorderDTO(ordered,customerService.findByUsername(username));
             orderService.addOrder(bookorderDTO);
             return WAITING_LIST_PAGE;
         }
         else {
             System.out.println("BYBOOK IS NULL");
-            BookorderDTO bookorderDTO=new BookorderDTO(ordered,customerService.findByUsername(email));
+            BookorderDTO bookorderDTO=new BookorderDTO(ordered,customerService.findByUsername(username));
             orderService.addOrder(bookorderDTO);
             return D_PAGE;
         }

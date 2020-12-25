@@ -1,16 +1,17 @@
 package com.julieandco.bcwebapplication.controllers;
 
-import com.julieandco.bcwebapplication.entities.BookDTO;
-import com.julieandco.bcwebapplication.entities.Bookorder;
-import com.julieandco.bcwebapplication.entities.BookorderDTO;
-import com.julieandco.bcwebapplication.entities.DeliveryDTO;
+import com.julieandco.bcwebapplication.entities.*;
+import com.julieandco.bcwebapplication.service.BookService;
+import com.julieandco.bcwebapplication.service.BoxService;
+import com.julieandco.bcwebapplication.service.CustomerService;
 import com.julieandco.bcwebapplication.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Controller
@@ -18,9 +19,35 @@ public class DeliveryController {
     private static final String DELIVERY_PAGE ="delivery";
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private BoxService boxService;
+    @Autowired
+    private BookService bookService;
+    @Autowired
+    private CustomerService customerService;
+
     @GetMapping("/delivery")
     public String getDeliveryView(){
         return "delivery";
+    }
+
+    @RequestMapping(value = "/subm/{id}")
+    public ModelAndView showEditProductPage(@PathVariable(name = "id") String id, HttpServletRequest request) {
+        //ModelAndView mav = new ModelAndView("edit_product");
+        System.out.println("CONSTRUCTION ID: "+id);
+        Long idd=Long.valueOf(id);
+        System.out.println("TO LONG: "+idd);
+        Book book = bookService.findById(idd).get();
+        CustomerEntity user = new CustomerEntity();
+        user = customerService.findByUsername(request.getRemoteUser());
+        BookorderDTO orderdto = new BookorderDTO(book, user);
+        orderService.addOrder(orderdto);
+
+        if(orderService.findByBook(book).size()>1)
+            return new ModelAndView("submit");
+        else
+            return new ModelAndView("waitinglist");
+        //return new ModelAndView("submit");
     }
 
     @PostMapping("/delivery")
@@ -38,6 +65,14 @@ public class DeliveryController {
         updated.setDeliveryState(true);
         updated.setId(idd);
         orderService.saveOrder(updated);
+        Box boxtoadd=new Box();
+        boxtoadd=boxService.findByAddress("Khreshchatyk");
+        Book book=new Book();
+        book.setTitle(book.getTitle());
+        book.setAuthor(book.getAuthor());
+        book.setYear(bookDTO.getYear());
+        book.setGenre(book.getGenre());
+        boxService.addBook(boxtoadd, book);
         return DELIVERY_PAGE;
     }
 }

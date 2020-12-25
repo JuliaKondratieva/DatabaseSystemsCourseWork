@@ -5,6 +5,7 @@
 </head>
 <body>
 <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-<p><a th:href="@{/books}"> catalogue </a> <a th:href="@{/ordersubmit}">             order your book</a><a th:href="@{/orders}">             my orders</a></p>
+<p><a th:href="@{/catalogue}"> catalogue </a> </p>
+ <p>   <a th:href="@{/orders}"> my orders</a></p>
 </body>
 </html>

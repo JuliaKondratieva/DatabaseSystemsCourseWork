@@ -10,6 +10,7 @@ public class Box {
     @Id
     @GeneratedValue
     private Long id;
+
     @OneToMany(mappedBy = "boxId")
     private List<Book> books;
     @Column

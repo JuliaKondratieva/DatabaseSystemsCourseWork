@@ -1,9 +1,6 @@
 package com.julieandco.bcwebapplication.service;
 
-import com.julieandco.bcwebapplication.entities.Book;
-import com.julieandco.bcwebapplication.entities.BookDTO;
-import com.julieandco.bcwebapplication.entities.CustomerDTO;
-import com.julieandco.bcwebapplication.entities.CustomerEntity;
+import com.julieandco.bcwebapplication.entities.*;
 import com.julieandco.bcwebapplication.repo.BookRepository;
 import com.julieandco.bcwebapplication.repo.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +43,10 @@ public class BookService {
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
+
+    @Transactional
+    public Optional<Book> findById(Long id){
+        return bookRepository.findById(id);
+    }
+
 }
