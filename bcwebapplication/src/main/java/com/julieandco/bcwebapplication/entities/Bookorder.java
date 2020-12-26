@@ -58,6 +58,10 @@ public class Bookorder {
         this.id = id;
     }
 
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
+    }
+
     public LocalDateTime getFromDate() {
         return fromDate;
     }

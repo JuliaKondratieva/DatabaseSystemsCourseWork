@@ -2,23 +2,26 @@ package com.julieandco.bcwebapplication.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.julieandco.bcwebapplication.entities.Book;
-import com.julieandco.bcwebapplication.entities.Bookorder;
-import com.julieandco.bcwebapplication.entities.Box;
+import com.julieandco.bcwebapplication.entities.*;
 import com.julieandco.bcwebapplication.service.BookService;
 import com.julieandco.bcwebapplication.service.BoxService;
 import com.julieandco.bcwebapplication.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@Controller
 public class BoxRestController {
     private final BoxService boxService;
     private final OrderService orderService;
+    private static final String ADDPAGE ="adminpage";
 
     @Autowired
     public BoxRestController(BoxService boxService, OrderService orderService) {
@@ -26,26 +29,14 @@ public class BoxRestController {
         this.orderService=orderService;
     }
 
-    @RequestMapping(value = "/box")
-    public String getBoxInfo()
-    {
-        String bookstring="";
-        Box boxser=boxService.findByAddress("Khreshchatyk");
-        List<Book> bl;
-               bl= boxser.getBooks();
-        String res="BOOKS: ";
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .create();
-        List<Bookorder> listord=new ArrayList<>();
-        Bookorder order=new Bookorder();
-        if(bl!=null)
-       for(Book book:bl){
-            listord.add(orderService.findCurrentByBook(book));
-       }
-       String ord="ORDERS: ";
+    @GetMapping("/addBox")
+    public String getRegistrationView(){
+        return "boxadd";
+    }
 
-        bookstring=res+gson.toJson(bl)+ord+gson.toJson(listord);
-        return bookstring;
+    @PostMapping("/addBox")
+    public String bookRegistration(final BoxDTO boxDTO, final Model model){
+        boxService.saveBox(boxDTO.getAddress());
+        return ADDPAGE;
     }
 }

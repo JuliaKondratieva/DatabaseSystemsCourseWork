@@ -10,6 +10,7 @@ import com.julieandco.bcwebapplication.repo.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,15 +31,37 @@ public class BoxService {
     }
 
 
-    public Box saveBox() {
+    public void saveBox(String Address) {
         Box box = new Box();
-        box.setAddress("Khreshchatyk");
-        return boxRepository.save(box);
+        box.setAddress(Address);
+        if(boxRepository.findByAddress(Address)==null)
+            boxRepository.save(box);
     }
 
     @Transactional
     public Box findByAddress(String address){
         return boxRepository.findByAddress(address);
+    }
+
+    @Transactional
+    public void checkinbook(Book book){
+
+    }
+
+    public void returnOrder(Bookorder bookorder){
+        if (bookorder.getDeliveryState()) {
+            Box boxkhr = findByAddress("Khreshchatyk");
+            addBook(boxkhr, bookorder.getBook());
+            //Bookorder current = orderService.findCurrentByBook(bookorder.getBook());
+            //orderService.deleteOrder(current);
+        }
+    }
+
+    public void delivOrder(Bookorder bookorder){
+        Box boxkhr = findByAddress("Khreshchatyk");
+        addBook(boxkhr, bookorder.getBook());
+        bookorder.setDeliveryState(true);
+        orderService.saveOrder(bookorder);
     }
 
     @Transactional

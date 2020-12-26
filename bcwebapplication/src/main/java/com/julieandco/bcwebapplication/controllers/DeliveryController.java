@@ -38,15 +38,40 @@ public class DeliveryController {
         Long idd=Long.valueOf(id);
         System.out.println("TO LONG: "+idd);
         Book book = bookService.findById(idd).get();
-        CustomerEntity user = new CustomerEntity();
-        user = customerService.findByUsername(request.getRemoteUser());
+        CustomerEntity user = customerService.findByUsername(request.getRemoteUser());
         BookorderDTO orderdto = new BookorderDTO(book, user);
         orderService.addOrder(orderdto);
 
-        if(orderService.findByBook(book).size()>1)
+        if(orderService.findByBook(book).size()==1)
             return new ModelAndView("submit");
         else
             return new ModelAndView("waitinglist");
+        //return new ModelAndView("submit");
+    }
+
+    @RequestMapping(value = "/deliver/{id}")
+    public ModelAndView returnPage(@PathVariable(name = "id") String id) {
+        //ModelAndView mav = new ModelAndView("edit_product");
+        System.out.println("CONSTRUCTION ID: "+id);
+        Long idd=Long.valueOf(id);
+        System.out.println("TO LONG: "+idd);
+        Bookorder order = orderService.findById(idd).get();
+        //check in to box & order delete or change status
+        boxService.returnOrder(order);
+        return new ModelAndView("mainuserpage");
+        //return new ModelAndView("submit");
+    }
+
+    @RequestMapping(value = "/boxdelivery/{id}")
+    public ModelAndView deliverPage(@PathVariable(name = "id") String id) {
+        //ModelAndView mav = new ModelAndView("edit_product");
+        System.out.println("CONSTRUCTION ID: "+id);
+        Long idd=Long.valueOf(id);
+        System.out.println("TO LONG: "+idd);
+        Bookorder order = orderService.findById(idd).get();
+        //check in to box & order delete or change status
+        boxService.delivOrder(order);
+        return new ModelAndView("adminpage");
         //return new ModelAndView("submit");
     }
 

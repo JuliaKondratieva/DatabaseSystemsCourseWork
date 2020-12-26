@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +40,29 @@ public class OrderService {
         Bookorder order = populateOrderData(orderData);
         return orderRepository.save(order);
     }*/
+
+    @Transactional
+    public void deleteOrder(Bookorder bookorder){
+        System.out.println("delete order trans order service");
+        orderRepository.delete(bookorder);
+        List<Bookorder> list = orderRepository.findByBook(bookorder.getBook());
+        LocalDateTime min = LocalDateTime.now();
+        Bookorder next = new Bookorder();
+        if(!list.isEmpty()) {
+            for (Bookorder b : list) {
+                if (b.getFromDate().isBefore(min)) {
+                    min = b.getFromDate();
+                    next = b;
+                }
+            }
+            next.setSubmitted(true);
+            next.setDeliveryState(true);
+            next.setDueDate(LocalDateTime.now().plusWeeks(3));
+            orderRepository.save(next);
+        }
+        System.out.println("saved next order order service");
+    }
+
     @Transactional
     public void saveOrder(Bookorder order) {
          orderRepository.save(order);

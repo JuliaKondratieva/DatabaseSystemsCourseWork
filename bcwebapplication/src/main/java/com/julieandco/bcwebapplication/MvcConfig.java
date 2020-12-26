@@ -1,5 +1,6 @@
 package com.julieandco.bcwebapplication;
 import com.julieandco.bcwebapplication.entities.Book;
+import com.julieandco.bcwebapplication.entities.OrderEntity;
 import com.julieandco.bcwebapplication.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
