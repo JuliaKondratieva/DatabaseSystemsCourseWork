@@ -32,9 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/login", "/register").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").permitAll()
-                .defaultSuccessUrl("/homepage",true);
-                //.and()
-                //.exceptionHandling().accessDeniedPage("/homepage");
+                .defaultSuccessUrl("/homepage",true)//;
+                .and()
+                .exceptionHandling().accessDeniedPage("/homepage");
     }
 
 

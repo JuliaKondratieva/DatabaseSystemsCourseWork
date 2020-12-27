@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class ExHandler {
@@ -32,11 +34,37 @@ public class ExHandler {
         }
     }
 
+    @ExceptionHandler({ NoSuchElementException.class })
+    public final ModelAndView handleExceptionNoEl(Exception ex, WebRequest request) {
+        HttpHeaders headers = new HttpHeaders();
+
+        if (ex instanceof NoSuchElementException) {
+            HttpStatus status = HttpStatus.NOT_FOUND;
+            System.out.println("NOT FOUND TRIGGERED");
+            NoSuchElementException cnae = (NoSuchElementException) ex;
+
+            ResponseEntity<ApiError> er= handleContentNoElException(cnae, headers, status, request);
+            System.out.println("error: "+er.toString());
+        } else {
+            HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+            ResponseEntity<ApiError> er = handleExceptionInternal(ex, null, headers, status, request);
+            System.out.println("error: "+er.toString());
+
+        }
+        return new ModelAndView("nosuchelement");
+    }
+
 
     /** Customize the response for ContentNotAllowedException. */
     protected ResponseEntity<ApiError> handleContentForbiddenException(HttpClientErrorException.Forbidden ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> errors = Collections.singletonList(ex.getMessage());
         System.out.println("MESSAGE FORBID");
+        return handleExceptionInternal(ex, new ApiError(errors), headers, status, request);
+    }
+
+    protected ResponseEntity<ApiError> handleContentNoElException(NoSuchElementException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        List<String> errors = Collections.singletonList(ex.getMessage());
+        System.out.println("MESSAGE NO SUCH ELEMENT");
         return handleExceptionInternal(ex, new ApiError(errors), headers, status, request);
     }
 
