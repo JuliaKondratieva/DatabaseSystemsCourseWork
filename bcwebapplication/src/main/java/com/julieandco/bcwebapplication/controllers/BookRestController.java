@@ -17,7 +17,7 @@ public class BookRestController {
         this.bookService = bookService;
     }
 
-    @RequestMapping(value = "/books")
+   /* @RequestMapping(value = "/books")
     public String getAllBooks()
     {
         List<Book> books;
@@ -32,5 +32,5 @@ public class BookRestController {
         }
 
         return jsonstring;
-    }
+    }*/
 }

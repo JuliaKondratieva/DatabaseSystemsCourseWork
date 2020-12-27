@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Controller
@@ -31,51 +32,66 @@ public class DeliveryController {
         return "delivery";
     }
 
-    @RequestMapping(value = "/subm/{id}")
+    /*@RequestMapping(value = "/subm/{id}")
     public ModelAndView showEditProductPage(@PathVariable(name = "id") String id, HttpServletRequest request) {
         //ModelAndView mav = new ModelAndView("edit_product");
         System.out.println("CONSTRUCTION ID: "+id);
         Long idd=Long.valueOf(id);
         System.out.println("TO LONG: "+idd);
-        Book book = bookService.findById(idd).get();
-        CustomerEntity user = customerService.findByUsername(request.getRemoteUser());
-        BookorderDTO orderdto = new BookorderDTO(book, user);
-        orderService.addOrder(orderdto);
+        try {
+            Book book = bookService.findById(idd).get();
+            CustomerEntity user = customerService.findByUsername(request.getRemoteUser());
+            BookorderDTO orderdto = new BookorderDTO(book, user);
+            orderService.addOrder(orderdto);
 
-        if(orderService.findByBook(book).size()==1)
-            return new ModelAndView("submit");
-        else
-            return new ModelAndView("waitinglist");
+            if (orderService.findByBook(book).size() == 1)
+                return new ModelAndView("submit");
+            else
+                return new ModelAndView("waitinglist");
+        }
+        catch (NoSuchElementException exception){
+            return new ModelAndView("errorelement");
+        }
         //return new ModelAndView("submit");
-    }
+    }*/
 
-    @RequestMapping(value = "/deliver/{id}")
+    /*@RequestMapping(value = "/deliver/{id}")
     public ModelAndView returnPage(@PathVariable(name = "id") String id) {
         //ModelAndView mav = new ModelAndView("edit_product");
         System.out.println("CONSTRUCTION ID: "+id);
         Long idd=Long.valueOf(id);
         System.out.println("TO LONG: "+idd);
-        Bookorder order = orderService.findById(idd).get();
-        //check in to box & order delete or change status
-        boxService.returnOrder(order);
-        return new ModelAndView("mainuserpage");
+        try {
+            Bookorder order = orderService.findById(idd).get();
+            //check in to box & order delete or change status
+            boxService.returnOrder(order);
+            return new ModelAndView("mainuserpage");
+        }
+        catch (NoSuchElementException exception){
+            return new ModelAndView("errorelement");
+        }
         //return new ModelAndView("submit");
-    }
+    }*/
 
-    @RequestMapping(value = "/boxdelivery/{id}")
+    /*@RequestMapping(value = "/boxdelivery/{id}")
     public ModelAndView deliverPage(@PathVariable(name = "id") String id) {
         //ModelAndView mav = new ModelAndView("edit_product");
         System.out.println("CONSTRUCTION ID: "+id);
         Long idd=Long.valueOf(id);
         System.out.println("TO LONG: "+idd);
-        Bookorder order = orderService.findById(idd).get();
-        //check in to box & order delete or change status
-        boxService.delivOrder(order);
-        return new ModelAndView("adminpage");
+        try {
+            Bookorder order = orderService.findById(idd).get();
+            //check in to box & order delete or change status
+            boxService.delivOrder(order);
+            return new ModelAndView("adminpage");
+        }
+        catch (NoSuchElementException exception){
+            return new ModelAndView("errorelement");
+        }
         //return new ModelAndView("submit");
-    }
+    }*/
 
-    @PostMapping("/delivery")
+   /* @PostMapping("/delivery")
     public String deliveryCheckIn(final BookDTO bookDTO, final Model model){
         Bookorder updated;
         System.out.println("DELIVERY"+bookDTO.getYear());
@@ -99,5 +115,5 @@ public class DeliveryController {
         book.setGenre(book.getGenre());
         boxService.addBook(boxtoadd, book);
         return DELIVERY_PAGE;
-    }
+    }*/
 }

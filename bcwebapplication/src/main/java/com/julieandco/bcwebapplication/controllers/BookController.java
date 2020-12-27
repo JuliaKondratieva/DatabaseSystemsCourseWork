@@ -25,7 +25,7 @@ public class BookController {
     }
 
 
-    @GetMapping("/addBook")
+    /*@GetMapping("/addBook")
     public String getRegistrationView(){
         return "addBook";
     }
@@ -35,9 +35,9 @@ public class BookController {
         if(bookService.findByTitle(bookDTO.getTitle())==null)
                 bookService.saveBook(bookDTO);
         return ADDPAGE;
-    }
+    }*/
 
-    @GetMapping("/getBook")
+    /*@GetMapping("/getBook")
     public String getCatalogueView(){
         return "book";
     }
@@ -47,5 +47,5 @@ public class BookController {
     {
         model.addAttribute("books", bookService.getAllBooks());
         return "book";
-    }
+    }*/
 }

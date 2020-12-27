@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Users</title>
+</head>
+<body style="background: url(https://i.pinimg.com/originals/f5/78/6e/f5786ea1483c9b3dc780837d0c5a7b2a.jpg);">
+<div align="center">
+    <h1>Users</h1>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customerentity : ${listUsers}">
+            <td th:text="${customerentity.id}">User ID</td>
+            <td th:text="${customerentity.username}">Username</td>
+            <td th:text="${customerentity.email}">Email</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

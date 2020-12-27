@@ -44,8 +44,8 @@ public class BoxService {
     }
 
     @Transactional
-    public void checkinbook(Book book){
-
+    public List<Box> getAll(){
+        return boxRepository.findAll();
     }
 
     public void returnOrder(Bookorder bookorder){

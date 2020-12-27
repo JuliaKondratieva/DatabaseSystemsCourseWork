@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Box Storage</title>
+</head>
+<body style="background: url(https://i.pinimg.com/originals/f5/78/6e/f5786ea1483c9b3dc780837d0c5a7b2a.jpg);">
+<div align="center">
+    <h1>Books</h1>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>Address</th>
+            <th>Book ID</th>
+            <th>Book Title</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="box : ${listBoxs}">
+            <td th:text="${box.address}">Address</td>
+            <td th:text="${box.book.id}">Book ID</td>
+            <td th:text="${box.book.title}">Book Title</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

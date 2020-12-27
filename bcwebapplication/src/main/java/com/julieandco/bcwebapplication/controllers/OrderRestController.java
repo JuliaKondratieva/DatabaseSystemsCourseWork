@@ -31,7 +31,7 @@ public class OrderRestController {
         this.customerService=customerService;
     }
 
-    @RequestMapping("/myorders")
+   /* @RequestMapping("/myorders")
     public ModelAndView OrdersPage(Model model) {
         List<OrderEntity> listOrders = new ArrayList<>();
         String email=httpServletRequest.getRemoteUser();
@@ -54,9 +54,9 @@ public class OrderRestController {
         model.addAttribute("listOrders", listOrders);
 
         return new ModelAndView("myorders");
-    }
+    }*/
 
-    @RequestMapping("/allorders")
+    /*@RequestMapping("/allorders")
     public ModelAndView OrdersAdmPage(Model model) {
         List<Bookorder> listOrders = new ArrayList<>();
         List<Bookorder> bookorders=orderService.getAllOrders();
@@ -68,9 +68,9 @@ public class OrderRestController {
         model.addAttribute("listOrders", listOrders);
 
         return new ModelAndView("allorders");
-    }
+    }*/
 
-    @RequestMapping(value = "/orders")
+    /*@RequestMapping(value = "/orders")
     public String getUserOrders()
     {
         List<Bookorder> bookorders;
@@ -89,7 +89,7 @@ public class OrderRestController {
         }
 
         return jsonstring;
-    }
+    }*/
 
     /*@RequestMapping(value = "/allorders")
     public String getAllOrders()

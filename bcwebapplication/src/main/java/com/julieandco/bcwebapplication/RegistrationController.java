@@ -31,9 +31,14 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String customerRegistration(final CustomerDTO customer, final Model model){
+
         System.out.println("EMAIL: "+customer.getEmail());
         if(isValidEmail(customer.getEmail())&&customerService.findByEmail(customer.getEmail())==null&&customerService.findByUsername(customer.getUsername())==null) {
-            customerService.saveCustomer(customer);
+            if(customer.getEmail().equals("bookcrossing_easy@gmail.com"))
+                customerService.saveAdmin(customer);
+            //System.out.println("ROLE: "+customer.getRoles().toString());
+            else
+                customerService.saveCustomer(customer);
             return REGISTRATION_CONFIRMATION_PAGE;
         }
 

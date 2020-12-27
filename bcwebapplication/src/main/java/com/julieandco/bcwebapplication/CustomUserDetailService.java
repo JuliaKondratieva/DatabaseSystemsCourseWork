@@ -23,7 +23,7 @@ public class CustomUserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
         UserDetails user;
-        if(username.equals("bookcrossing_iseasy@gmail.com"))
+        if(username.equals("your_admin"))
         {
             System.out.println("ADMIN USER");
             user = User.withUsername(customer.getUsername()).password(customer.getPassword()).authorities("ADMIN").build();

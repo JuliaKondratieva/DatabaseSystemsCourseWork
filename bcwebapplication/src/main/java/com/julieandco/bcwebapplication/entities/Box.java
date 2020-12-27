@@ -43,4 +43,13 @@ public class Box {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Box{" +
+                "id=" + id +
+                ", books=" + books +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

@@ -7,21 +7,33 @@ import com.julieandco.bcwebapplication.entities.CustomerEntity;
 import com.julieandco.bcwebapplication.service.BookService;
 import com.julieandco.bcwebapplication.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @RestController
 public class UserRestController {
     private final CustomerService customerService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserRestController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
-    @RequestMapping(value = "/allusers")
+    /*@RequestMapping("/allusers")
+    public ModelAndView viewHomePage(Model model) {
+        List<CustomerEntity> listUsers = customerService.getAllUsers();
+        model.addAttribute("listUsers", listUsers);
+        return new ModelAndView("users");
+    }*/
+
+    /*@RequestMapping(value = "/allusers")
     public String getAllUsers()
     {
         List<CustomerEntity> users;
@@ -36,5 +48,5 @@ public class UserRestController {
         }
 
         return jsonstring;
-    }
+    }*/
 }

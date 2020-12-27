@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class BoxRestController {
         this.orderService=orderService;
     }
 
-    @GetMapping("/addBox")
+    /*@GetMapping("/addBox")
     public String getRegistrationView(){
         return "boxadd";
     }
@@ -39,4 +40,12 @@ public class BoxRestController {
         boxService.saveBox(boxDTO.getAddress());
         return ADDPAGE;
     }
+
+    @RequestMapping("/boxinfo")
+    public ModelAndView viewBoxPage(Model model) {
+        List<Box> listBoxs = boxService.getAll();
+        System.out.println("AH HERE WE GO"+listBoxs.get(0).toString());
+        model.addAttribute("listBoxs", listBoxs);
+        return new ModelAndView("boxstore");
+    }*/
 }

@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @Controller
 public class OrderController {
-    private static final String D_PAGE ="mainuserpage";
+    /*private static final String D_PAGE ="mainuserpage";
     private static final String WAITING_LIST_PAGE ="waitinglist";
 
 
@@ -68,5 +68,5 @@ public class OrderController {
             return D_PAGE;
         }
 
-    }
+    }*/
 }
